@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DWSMovieTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Actor">
+          <Key>
+            <PropertyRef Name="ActorID" />
+          </Key>
+          <Property Name="ActorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="400" Nullable="false" />
+          <Property Name="MovieYear" Type="int" />
+          <Property Name="MovieType" Type="varchar" MaxLength="20" />
+          <Property Name="Location" Type="varchar" MaxLength="100" />
+          <Property Name="Director" Type="varchar" MaxLength="50" />
+          <Property Name="Plot" Type="varchar" MaxLength="400" />
+          <Property Name="Poster" Type="varchar" MaxLength="400" />
+          <Property Name="ActorString" Type="varchar" MaxLength="400" />
+          <Property Name="GenreString" Type="varchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="MovieCast">
+          <Key>
+            <PropertyRef Name="MovieCastID" />
+          </Key>
+          <Property Name="MovieCastID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActorID" Type="int" Nullable="false" />
+          <Property Name="MovieID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovieGenre">
+          <Key>
+            <PropertyRef Name="MovieGenreID" />
+          </Key>
+          <Property Name="MovieGenreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MovieID" Type="int" Nullable="false" />
+          <Property Name="GenreID" Type="int" Nullable="false" />
+        </EntityType>
+        <Function Name="DeleteMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MovieID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Movie_Reader" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchString" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SplitString" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="str" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="separator" Type="char" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ItemIndex" Type="bigint" />
+                <Property Name="Split" Type="nvarchar(max)" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="Upsert_Movie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MovieID" Type="int" Mode="In" />
+          <Parameter Name="Title" Type="varchar" Mode="In" />
+          <Parameter Name="MovieYear" Type="int" Mode="In" />
+          <Parameter Name="MovieType" Type="varchar" Mode="In" />
+          <Parameter Name="Location" Type="varchar" Mode="In" />
+          <Parameter Name="Director" Type="varchar" Mode="In" />
+          <Parameter Name="Plot" Type="varchar" Mode="In" />
+          <Parameter Name="Poster" Type="varchar" Mode="In" />
+          <Parameter Name="ActorString" Type="varchar" Mode="In" />
+          <Parameter Name="GenreString" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpsertActors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ActorString" Type="varchar" Mode="In" />
+          <Parameter Name="MovieID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpsertGenre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="GenreString" Type="varchar" Mode="In" />
+          <Parameter Name="MovieID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DWSMovieTrackerModelStoreContainer">
+          <EntitySet Name="Actor" EntityType="Self.Actor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovieCast" EntityType="Self.MovieCast" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MovieGenre" EntityType="Self.MovieGenre" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DWSMovieTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="SplitString_Result">
+          <Property Name="ItemIndex" Type="Int64" />
+          <Property Name="Split" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </ComplexType>
+        <EntityType Name="Actor">
+          <Key>
+            <PropertyRef Name="ActorID" />
+          </Key>
+          <Property Name="ActorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="GenreID" />
+          </Key>
+          <Property Name="GenreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="MovieId" />
+          </Key>
+          <Property Name="MovieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="400" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MovieYear" Type="Int32" />
+          <Property Name="MovieType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Director" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Plot" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Poster" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="ActorString" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="GenreString" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MovieCast">
+          <Key>
+            <PropertyRef Name="MovieCastID" />
+          </Key>
+          <Property Name="MovieCastID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActorID" Type="Int32" Nullable="false" />
+          <Property Name="MovieID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MovieGenre">
+          <Key>
+            <PropertyRef Name="MovieGenreID" />
+          </Key>
+          <Property Name="MovieGenreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MovieID" Type="Int32" Nullable="false" />
+          <Property Name="GenreID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DWSMovieTrackerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actor" EntityType="Self.Actor" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" />
+          <EntitySet Name="Movie" EntityType="Self.Movie" />
+          <EntitySet Name="MovieCast" EntityType="Self.MovieCast" />
+          <EntitySet Name="MovieGenre" EntityType="Self.MovieGenre" />
+          <FunctionImport Name="SplitString" IsComposable="true" ReturnType="Collection(DWSMovieTrackerModel.SplitString_Result)">
+            <Parameter Name="str" Mode="In" Type="String" />
+            <Parameter Name="separator" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteMovie">
+          <Parameter Name="MovieID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Movie_Reader" ReturnType="Collection(DWSMovieTrackerModel.Movie_Reader_Result)">
+          <Parameter Name="searchString" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Upsert_Movie">
+            <Parameter Name="MovieID" Mode="In" Type="Int32" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="MovieYear" Mode="In" Type="Int32" />
+            <Parameter Name="MovieType" Mode="In" Type="String" />
+            <Parameter Name="Location" Mode="In" Type="String" />
+            <Parameter Name="Director" Mode="In" Type="String" />
+            <Parameter Name="Plot" Mode="In" Type="String" />
+            <Parameter Name="Poster" Mode="In" Type="String" />
+            <Parameter Name="ActorString" Mode="In" Type="String" />
+            <Parameter Name="GenreString" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpsertActors">
+            <Parameter Name="ActorString" Mode="In" Type="String" />
+            <Parameter Name="MovieID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpsertGenre">
+            <Parameter Name="GenreString" Mode="In" Type="String" />
+            <Parameter Name="MovieID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Movie_Reader_Result">
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="400" />
+          <Property Type="Int32" Name="MovieYear" Nullable="true" />
+          <Property Type="String" Name="MovieType" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Director" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Plot" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="Poster" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="Actors" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="Genres" Nullable="true" MaxLength="400" />
+          <Property Type="Int32" Name="MovieID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DWSMovieTrackerModelStoreContainer" CdmEntityContainer="DWSMovieTrackerEntities">
+          <EntitySetMapping Name="Actor">
+            <EntityTypeMapping TypeName="DWSMovieTrackerModel.Actor">
+              <MappingFragment StoreEntitySet="Actor">
+                <ScalarProperty Name="ActorID" ColumnName="ActorID" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genre">
+            <EntityTypeMapping TypeName="DWSMovieTrackerModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movie">
+            <EntityTypeMapping TypeName="DWSMovieTrackerModel.Movie">
+              <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="MovieYear" ColumnName="MovieYear" />
+                <ScalarProperty Name="MovieType" ColumnName="MovieType" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Plot" ColumnName="Plot" />
+                <ScalarProperty Name="Poster" ColumnName="Poster" />
+                <ScalarProperty Name="ActorString" ColumnName="ActorString" />
+                <ScalarProperty Name="GenreString" ColumnName="GenreString" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovieCast">
+            <EntityTypeMapping TypeName="DWSMovieTrackerModel.MovieCast">
+              <MappingFragment StoreEntitySet="MovieCast">
+                <ScalarProperty Name="MovieCastID" ColumnName="MovieCastID" />
+                <ScalarProperty Name="ActorID" ColumnName="ActorID" />
+                <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MovieGenre">
+            <EntityTypeMapping TypeName="DWSMovieTrackerModel.MovieGenre">
+              <MappingFragment StoreEntitySet="MovieGenre">
+                <ScalarProperty Name="MovieGenreID" ColumnName="MovieGenreID" />
+                <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+                <ScalarProperty Name="GenreID" ColumnName="GenreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="DWSMovieTrackerModel.Store.SplitString" FunctionImportName="SplitString">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DWSMovieTrackerModel.SplitString_Result">
+                <ScalarProperty Name="ItemIndex" ColumnName="ItemIndex" />
+                <ScalarProperty Name="Split" ColumnName="Split" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteMovie" FunctionName="DWSMovieTrackerModel.Store.DeleteMovie" />
+          <FunctionImportMapping FunctionImportName="Movie_Reader" FunctionName="DWSMovieTrackerModel.Store.Movie_Reader">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DWSMovieTrackerModel.Movie_Reader_Result">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="MovieYear" ColumnName="MovieYear" />
+                <ScalarProperty Name="MovieType" ColumnName="MovieType" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Plot" ColumnName="Plot" />
+                <ScalarProperty Name="Poster" ColumnName="Poster" />
+                <ScalarProperty Name="Actors" ColumnName="Actors" />
+                <ScalarProperty Name="Genres" ColumnName="Genres" />
+                <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Upsert_Movie" FunctionName="DWSMovieTrackerModel.Store.Upsert_Movie" />
+          <FunctionImportMapping FunctionImportName="UpsertActors" FunctionName="DWSMovieTrackerModel.Store.UpsertActors" />
+          <FunctionImportMapping FunctionImportName="UpsertGenre" FunctionName="DWSMovieTrackerModel.Store.UpsertGenre" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

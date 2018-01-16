@@ -1,0 +1,81 @@
+﻿@model MovieTracker.Models.Movie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.Title)</h4>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MovieId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <hr />
+    <div class="col-md-offset-2 col-md-10">
+        <img src="@Html.DisplayFor(model =>model.Poster)" />
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Director)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Director)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Plot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Plot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActorString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActorString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GenreString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GenreString)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MovieId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

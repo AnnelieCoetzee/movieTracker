@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MovieTracker.Models.Movie>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<hr/>
+
+<div class="row">
+    <div class="col-md-10">
+        <h2>Welcome to your movie tracker app</h2>
+        <p>
+            This app allows you to store and track the movies you have in your collection.
+        </p>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Existing Movies</h2>
+            <p>View/Edit a list of your existing movies here.</p>
+            <p><a class="btn btn-default" href="~/Movies/Index">View &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Add a new Movie</h2>
+            <p>Quickly add a new movie here.</p>
+            <p><a class="btn btn-default" href="~/Movies/Create">Create &raquo;</a></p>
+        </div>
+    </div>
+    </body>
+    </html>
